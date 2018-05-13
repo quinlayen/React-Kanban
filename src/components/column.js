@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from './card';
+import './components.css'
 
 const Column = (props) =>{
     const individualCards = props.cards.map((card) => {
@@ -8,10 +9,11 @@ const Column = (props) =>{
 
 
 return (
-    <ul className="col-md-4 list-group">
-    {individualCards}
-    </ul>
-
+    <div className="card">
+        <ul className="list-group">
+        {individualCards}
+        </ul>
+    </div>
 )
 
 }

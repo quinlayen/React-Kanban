@@ -7,7 +7,7 @@ const Card = ({title, notes, priority, created_by, assigned_to}) => {
         return (
             <div>
                 <li className="list-group-item">
-                    <div className="card">
+                    <div className="card bg-light mb-3">
                         <div className="card-body">
                             <h5 className="card-title">{title}</h5>
                             <p className="card-text">{notes}</p>

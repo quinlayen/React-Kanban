@@ -3,7 +3,7 @@ const cardsFromFakeDB = [{
             title: 'Jerry Rig',
             notes: 'Bacon ipsum dolor sit amet salami ham hock ham',
             priority: 'Kinda Important',
-            status: 'Queue',
+            status: 'In Queue',
             created_by: 'Peter',
             assigned_to: 'Anyone Except Peter'
   },
