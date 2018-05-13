@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { getCardsFromFakeXHR, addCardToFakeXHR } from './initialDatabase';
 import Column from './components/column';
+import NavBar from './components/task_bar'
 
 class App extends Component {
   constructor(props) {
@@ -27,6 +28,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <NavBar />
         <div className="container">
           <div className="row">
             <div className="card col-md">
