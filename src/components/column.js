@@ -3,6 +3,7 @@ import Card from './card';
 import './components.css'
 
 const Column = (props) =>{
+    //console.log('props in column',props)
     const individualCards = props.cards.map((card) => {
         return <Card key={card.id} {...card}/>
     })

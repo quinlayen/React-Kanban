@@ -2,32 +2,48 @@ import React, { Component } from 'react';
 import './App.css';
 import { getCardsFromFakeXHR, addCardToFakeXHR } from './initialDatabase';
 import Column from './components/column';
-import NavBar from './components/task_bar'
+import NavBar from './components/task_bar';
+//import Card from './components/card';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      cards: [],
+      
       in_queue_cards: [],
       in_progress_cards: [],
-      completed_cards: []
+      completed_cards: [], 
+      selectedCard: null
     };
-  }
 
+    this.changeStatus = this.changeStatus.bind(this)
+  }
+  
+  
   //Mounts card data from the database at initialization
   componentDidMount() {
-    getCardsFromFakeXHR().then(cards => {
+    getCardsFromFakeXHR().then(cards => { 
       const sortedColumns = this.sortColumns(cards);
-      console.log(sortedColumns)
       this.setState( sortedColumns );
     });
   }
+  
+  changeStatus(data){
+    const concatArray =this.state.in_queue_cards.concat(this.state.in_progress_cards).concat(this.state.completed_cards);
+    this.concatArray.map((data)=>{
+      if(data.id ===this.props.id){
+        data.status = data.currentTarget;
+      }
+      
+    })
+  }
 
+  
   render() {
     return (
       <div>
+      
         <NavBar />
         <div className="container">
           <div className="row">
@@ -45,6 +61,7 @@ class App extends Component {
             </div>
           </div>
         </div>
+        {/* <Column changeStatus={this.changeStatus} /> */}
       </div>
     );
   }
