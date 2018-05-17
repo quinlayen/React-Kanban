@@ -8,7 +8,7 @@ const Column = (props) =>{
         return <Card key={card.id} {...card}/>
     })
 
-
+    
 return (
     <div className="card">
         <ul className="list-group">
@@ -17,6 +17,6 @@ return (
     </div>
 )
 
-}
 
+}
 export default Column;
