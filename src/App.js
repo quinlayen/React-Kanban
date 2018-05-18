@@ -10,86 +10,94 @@ class App extends Component {
     super(props);
 
     this.state = {
-      
       in_queue_cards: [],
       in_progress_cards: [],
-      completed_cards: [], 
+      completed_cards: [],
       selectedCard: null
     };
 
-    this.changeStatus = this.changeStatus.bind(this)
-  }
-  
-  
-  //Mounts card data from the database at initialization
-  componentDidMount() {
-    getCardsFromFakeXHR().then(cards => { 
-      const sortedColumns = this.sortColumns(cards);
-      this.setState( sortedColumns );
-    });
-  }
-  
-  changeStatus(data){
-    const concatArray =this.state.in_queue_cards.concat(this.state.in_progress_cards).concat(this.state.completed_cards);
-    this.concatArray.map((data)=>{
-      if(data.id ===this.props.id){
-        data.status = data.currentTarget;
-      }
-      
-    })
+    this.onStatusChange = this.onStatusChange.bind(this);
   }
 
-  
+  //Mounts card data from the database at initialization
+  componentDidMount() {
+    getCardsFromFakeXHR().then(cards => {
+      const sortedColumns = this.sortColumns(cards);
+      this.setState(sortedColumns);
+    });
+  }
+  //This function is passed down to the card and receives both the status change and the id.
+  //It then reads the change and reasigns the card to the correct column
+  onStatusChange(status, id) {
+    const concatArray = this.state.in_queue_cards
+      .concat(this.state.in_progress_cards)
+      .concat(this.state.completed_cards);
+    const filteredArray = concatArray.map(data => {
+      if (data.id == id) {
+        data.status = status;
+      }
+      return data
+    });
+    const sortedColumns = this.sortColumns(filteredArray)
+    this.setState(sortedColumns)
+    //console.log(filteredArray);
+  }
+
   render() {
     return (
       <div>
-      
         <NavBar />
         <div className="container">
           <div className="row">
             <div className="card col-md">
               <div className="card-header">In Queue</div>
-              <Column cards={this.state.in_queue_cards} />
+              <Column cards={this.state.in_queue_cards} onStatusChange={this.onStatusChange} />
             </div>
             <div className="card col-md">
               <div className="card-header">In Progress</div>
-              <Column cards={this.state.in_progress_cards} />
+              <Column cards={this.state.in_progress_cards} onStatusChange={this.onStatusChange} />
             </div>
             <div className="card col-md">
               <div className="card-header">Completed</div>
-              <Column cards={this.state.completed_cards} />
+              <Column cards={this.state.completed_cards} onStatusChange={this.onStatusChange} />
             </div>
           </div>
         </div>
-        {/* <Column changeStatus={this.changeStatus} /> */}
       </div>
     );
   }
 
+  //Helper function to sort cards based on status.
+  //This function is called in the componentDidMount getCards function
+  columnSelector(cards, in_queue_cards, in_progress_cards, completed_cards) {
+    
+    if (cards.status === 'In Queue') {
+      in_queue_cards.push(cards);
+    } else if (cards.status === 'In Progress') {
+      in_progress_cards.push(cards);
+    } else {
+      completed_cards.push(cards);
+    }
+  }
 
-//Helper function to sort cards based on status.  
-//This function is called in the componentDidMount getCards function
   sortColumns(cards) {
     const in_queue_cards = [];
-    const in_progress_cards =[];
-    const completed_cards =[]
-    let cardStatus = cards.map(cards => {
-      if (cards.status === 'In Queue') {
-        in_queue_cards.push(cards);
-      } else if (cards.status === 'In Progress') {
-        in_progress_cards.push(cards);
-      } else {
-        completed_cards.push(cards);
-      }
-    })
+    const in_progress_cards = [];
+    const completed_cards = [];
+
+    if (Array.isArray(cards)) {
+      cards.forEach(cards => this.columnSelector(cards, in_queue_cards, in_progress_cards, completed_cards));
+    } else {
+      this.columnSelector(cards, in_queue_cards, in_progress_cards, completed_cards);
+    }
     return {
       in_queue_cards,
       in_progress_cards,
       completed_cards
-    }
+    };
   }
 }
 
 export default App;
 
-//<Column cards={this.state.cards.filter( (item) =>item.status === 'In Queue')} />
+

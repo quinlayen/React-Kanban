@@ -6,37 +6,38 @@ class Card extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        dropdownOpen: false,
-        status: ''
+      dropdownOpen: false,
+      status: ''
     };
     this.toggle = this.toggle.bind(this);
     this.newStatus = this.newStatus.bind(this);
-    console.log('props in Card', props)
-    
+    //console.log('props in Card', props)
   }
 
-  newStatus(event){
-      console.log('props',this.props.changeStatus)
-        //this.props.changeStatus(event.currentTarget.textContent)
+  newStatus(status) {
+    //console.log(status.currentTarget.id)
+    const cardId = this.props.id;
+    //console.log('props in card', status.currentTarget.textContent);
+    return this.props.onStatusChange(status.currentTarget.textContent, cardId);
+    //return this.props.onStatusChange(status.currentTarget.id, cardId)
   }
 
   toggle() {
-      this.setState(prevState => ({
-          dropdownOpen: !prevState.dropdownOpen
-      }));
+    this.setState(prevState => ({
+      dropdownOpen: !prevState.dropdownOpen
+    }));
   }
-
 
   render() {
     let pStyles = {
       fontSize: 14,
       margin: 0
     };
-    const { title, notes, priority, created_by, assigned_to, changeStatus } = this.props;
+    const { id, title, notes, priority, created_by, status, assigned_to, onStatusChange } = this.props;
 
     return (
       <div>
-        <li className="list-group-item">
+        <li id={id} className="list-group-item">
           <div className="card bg-light mb-3" onClick={this.select}>
             <div className="card-body">
               <h5 className="card-title">{title}</h5>
@@ -58,15 +59,21 @@ class Card extends Component {
                 Delete
               </a>
               <Dropdown isOpen={this.state.dropdownOpen} size="sm" toggle={this.toggle}>
-              <DropdownToggle caret>
-              {this.state.dropdownValue}
-              Change Status
-              </DropdownToggle>
-              <DropdownMenu>
-                  <DropdownItem><div onClick={this.newStatus}>In Queue</div></DropdownItem>
-                  <DropdownItem><div onClick={this.newStatus}>In Progress</div></DropdownItem>
-                  <DropdownItem><div onClick={this.newStatus}>Completed</div></DropdownItem>  
-              </DropdownMenu>
+                <DropdownToggle caret>
+                  {this.state.dropdownValue}
+                  Change Status
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem>
+                    <div onClick={this.newStatus}>In Queue</div>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <div onClick={this.newStatus}>In Progress</div>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <div onClick={this.newStatus}>Completed</div>
+                  </DropdownItem>
+                </DropdownMenu>
               </Dropdown>
             </div>
           </div>
