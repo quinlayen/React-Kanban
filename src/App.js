@@ -69,27 +69,25 @@ class App extends Component {
 
   //Helper function to sort cards based on status.
   //This function is called in the componentDidMount getCards function
-  columnSelector(cards, in_queue_cards, in_progress_cards, completed_cards) {
-    
-    if (cards.status === 'In Queue') {
-      in_queue_cards.push(cards);
-    } else if (cards.status === 'In Progress') {
-      in_progress_cards.push(cards);
-    } else {
-      completed_cards.push(cards);
-    }
-  }
+ 
 
   sortColumns(cards) {
     const in_queue_cards = [];
     const in_progress_cards = [];
     const completed_cards = [];
 
-    if (Array.isArray(cards)) {
-      cards.forEach(cards => this.columnSelector(cards, in_queue_cards, in_progress_cards, completed_cards));
-    } else {
-      this.columnSelector(cards, in_queue_cards, in_progress_cards, completed_cards);
-    }
+   
+    
+      cards.forEach(cards =>{
+      if (cards.status === 'In Queue') {
+        in_queue_cards.push(cards);
+      } else if (cards.status === 'In Progress') {
+        in_progress_cards.push(cards);
+      } else {
+        completed_cards.push(cards);
+      }
+    })
+  
     return {
       in_queue_cards,
       in_progress_cards,
