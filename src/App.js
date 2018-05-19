@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 import { getCardsFromFakeXHR, addCardToFakeXHR } from './initialDatabase';
+import Main from './components/main';
 import Column from './components/column';
-import NavBar from './components/task_bar';
-//import Card from './components/card';
+import NavBar from './components/navBar';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 class App extends Component {
   constructor(props) {
@@ -36,49 +37,32 @@ class App extends Component {
       if (data.id == id) {
         data.status = status;
       }
-      return data
+      return data;
     });
-    const sortedColumns = this.sortColumns(filteredArray)
-    this.setState(sortedColumns)
-    //console.log(filteredArray);
+    const sortedColumns = this.sortColumns(filteredArray);
+    this.setState(sortedColumns);
   }
 
   render() {
     return (
-      <div>
-        <NavBar />
-        <div className="container">
-          <div className="row">
-            <div className="card col-md">
-              <div className="card-header">In Queue</div>
-              <Column cards={this.state.in_queue_cards} onStatusChange={this.onStatusChange} />
-            </div>
-            <div className="card col-md">
-              <div className="card-header">In Progress</div>
-              <Column cards={this.state.in_progress_cards} onStatusChange={this.onStatusChange} />
-            </div>
-            <div className="card col-md">
-              <div className="card-header">Completed</div>
-              <Column cards={this.state.completed_cards} onStatusChange={this.onStatusChange} />
-            </div>
-          </div>
+      <Router>
+        <div>
+          <NavBar />
+          <Route path='/' component={() => <Main in_queue_cards={this.state.in_queue_cards} in_progress_cards={this.state.in_progress_cards} completed_cards={this.state.completed_cards} onStatusChange={this.onStatusChange}/>}/>
         </div>
-      </div>
+      </Router>
     );
   }
 
   //Helper function to sort cards based on status.
   //This function is called in the componentDidMount getCards function
- 
 
   sortColumns(cards) {
     const in_queue_cards = [];
     const in_progress_cards = [];
     const completed_cards = [];
 
-   
-    
-      cards.forEach(cards =>{
+    cards.forEach(cards => {
       if (cards.status === 'In Queue') {
         in_queue_cards.push(cards);
       } else if (cards.status === 'In Progress') {
@@ -86,8 +70,8 @@ class App extends Component {
       } else {
         completed_cards.push(cards);
       }
-    })
-  
+    });
+
     return {
       in_queue_cards,
       in_progress_cards,
@@ -97,5 +81,3 @@ class App extends Component {
 }
 
 export default App;
-
-

@@ -11,15 +11,11 @@ class Card extends Component {
     };
     this.toggle = this.toggle.bind(this);
     this.newStatus = this.newStatus.bind(this);
-    //console.log('props in Card', props)
   }
 
   newStatus(status) {
-    //console.log(status.currentTarget.id)
     const cardId = this.props.id;
-    //console.log('props in card', status.currentTarget.textContent);
     return this.props.onStatusChange(status.currentTarget.textContent, cardId);
-    //return this.props.onStatusChange(status.currentTarget.id, cardId)
   }
 
   toggle() {
