@@ -3,7 +3,7 @@ import Column from './column';
 
 const Main = props => {
   return (
-    <div className="container">
+    <div className="container mt-3">
       <div className="row">
         <div className="card col-md">
           <div className="card-header">In Queue</div>

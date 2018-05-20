@@ -35,12 +35,13 @@ export const getCardsFromFakeXHR = () => new Promise((resolve, reject) => {
   }, 500)
 })
 
-export const addCardToFakeXHR = (item) => new Promise((resolve, reject) => {
+export const addCardToFakeXHR = (card) => new Promise((resolve, reject) => {
   setTimeout( () => {
-    item.id = newId;
+    console.log('card',card)
+    //card.id = newId;
     newId++;
-    cardsFromFakeDB.push(item);
-    console.log('itemFromFakeDB', cardsFromFakeDB)
+    cardsFromFakeDB.push(card);
+    //console.log('itemFromFakeDB', cardsFromFakeDB)
     resolve(cardsFromFakeDB)
   },500)
 })

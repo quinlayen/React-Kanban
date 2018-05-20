@@ -28,6 +28,13 @@ class App extends Component {
       this.setState(sortedColumns);
     });
   }
+
+  addCard(){
+    addCardToFakeXHR().then(({card}) =>{
+      console.log('card added', card)
+      //this.setState({card})
+    })
+  }
   //This function is passed down to the card and receives both the status change and the id.
   //It then reads the change and reasigns the card to the correct column
   onStatusChange(status, id) {
@@ -50,7 +57,7 @@ class App extends Component {
         <div>
           <NavBar />
           <Route exact path='/' component={() => <Main in_queue_cards={this.state.in_queue_cards} in_progress_cards={this.state.in_progress_cards} completed_cards={this.state.completed_cards} onStatusChange={this.onStatusChange}/>}/>
-          <Route path="/card/new" component={Form} />
+          <Route path="/card/new" component={()=> <Form addCard = {this.addCard}/>} />
         </div>
       </Router>
     );
