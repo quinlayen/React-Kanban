@@ -8,7 +8,7 @@ const NavBar = props => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light" style={navStyles}>
       <div className="container">
-        <a className="navbar-brand" href="#">
+        <a className="navbar-brand" href="/">
           KanBan
         </a>
         <button
@@ -30,7 +30,7 @@ const NavBar = props => {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <a className="nav-link" href="/card/new">
                 Add Card
               </a>
             </li>

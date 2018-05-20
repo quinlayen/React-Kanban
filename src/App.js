@@ -4,6 +4,7 @@ import { getCardsFromFakeXHR, addCardToFakeXHR } from './initialDatabase';
 import Main from './components/main';
 import Column from './components/column';
 import NavBar from './components/navBar';
+import Form from './components/newCardForm.js';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 class App extends Component {
@@ -48,7 +49,8 @@ class App extends Component {
       <Router>
         <div>
           <NavBar />
-          <Route path='/' component={() => <Main in_queue_cards={this.state.in_queue_cards} in_progress_cards={this.state.in_progress_cards} completed_cards={this.state.completed_cards} onStatusChange={this.onStatusChange}/>}/>
+          <Route exact path='/' component={() => <Main in_queue_cards={this.state.in_queue_cards} in_progress_cards={this.state.in_progress_cards} completed_cards={this.state.completed_cards} onStatusChange={this.onStatusChange}/>}/>
+          <Route path="/card/new" component={Form} />
         </div>
       </Router>
     );

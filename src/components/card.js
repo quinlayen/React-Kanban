@@ -57,7 +57,7 @@ class Card extends Component {
               <Dropdown isOpen={this.state.dropdownOpen} size="sm" toggle={this.toggle}>
                 <DropdownToggle caret>
                   {this.state.dropdownValue}
-                  Change Status
+                  Status
                 </DropdownToggle>
                 <DropdownMenu>
                   <DropdownItem>
