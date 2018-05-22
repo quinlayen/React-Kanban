@@ -6,6 +6,7 @@ import Column from './components/column';
 import NavBar from './components/navBar';
 import Form from './components/newCardForm.js';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import axios from 'axios';
 
 class App extends Component {
   constructor(props) {
@@ -19,22 +20,37 @@ class App extends Component {
     };
 
     this.onStatusChange = this.onStatusChange.bind(this);
+    this.sortColumns = this.sortColumns.bind(this);
   }
 
   //Mounts card data from the database at initialization
   componentDidMount() {
-    getCardsFromFakeXHR().then(cards => {
-      const sortedColumns = this.sortColumns(cards);
+    axios.get('http://localhost:8080')
+    .then(cards=>{
+      const sortedColumns=this.sortColumns(cards.data);
       this.setState(sortedColumns);
-    });
-  }
-
-  addCard(){
-    addCardToFakeXHR().then(({card}) =>{
-      console.log('card added', card)
-      //this.setState({card})
+    })
+    .catch(function (error){
+      console.log(error);
     })
   }
+ 
+  //These are additional CRUD operations
+
+  addCard(cardInfo){
+    //console.log('cardInfo', cardInfo)
+    axios.post('http://localhost:8080/card/new', cardInfo)
+    .then(card=>{
+      console.log('new card', card)
+    })
+  }
+
+  // addCard(){
+  //   addCardToFakeXHR().then(({card}) =>{
+  //     console.log('card added', card)
+  //     this.setState({card})
+  //   })
+  // }
   //This function is passed down to the card and receives both the status change and the id.
   //It then reads the change and reasigns the card to the correct column
   onStatusChange(status, id) {
@@ -49,18 +65,6 @@ class App extends Component {
     });
     const sortedColumns = this.sortColumns(filteredArray);
     this.setState(sortedColumns);
-  }
-
-  render() {
-    return (
-      <Router>
-        <div>
-          <NavBar />
-          <Route exact path='/' component={() => <Main in_queue_cards={this.state.in_queue_cards} in_progress_cards={this.state.in_progress_cards} completed_cards={this.state.completed_cards} onStatusChange={this.onStatusChange}/>}/>
-          <Route path="/card/new" component={()=> <Form addCard = {this.addCard}/>} />
-        </div>
-      </Router>
-    );
   }
 
   //Helper function to sort cards based on status.
@@ -86,6 +90,18 @@ class App extends Component {
       in_progress_cards,
       completed_cards
     };
+  }
+
+  render() {
+    return (
+      <Router>
+        <div>
+          <NavBar />
+          <Route exact path='/' component={() => <Main in_queue_cards={this.state.in_queue_cards} in_progress_cards={this.state.in_progress_cards} completed_cards={this.state.completed_cards} onStatusChange={this.onStatusChange}/>}/>
+          <Route path="/card/new" component={()=> <Form addCard = {this.addCard}/>} />
+        </div>
+      </Router>
+    );
   }
 }
 

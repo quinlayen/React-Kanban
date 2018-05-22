@@ -48,10 +48,10 @@ class Card extends Component {
                 Assigned To: {assigned_to}
               </p>
 
-              <a href="#" className="card-link">
+              <a href="/" className="card-link">
                 Edit
               </a>
-              <a href="#" className="card-link">
+              <a href="/" className="card-link">
                 Delete
               </a>
               <Dropdown isOpen={this.state.dropdownOpen} size="sm" toggle={this.toggle}>

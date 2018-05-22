@@ -37,10 +37,10 @@ const NavBar = props => {
           </ul>
           <ul className="nav navbar-nav navbar-right">
         <li>
-          <a className="nav-link" href="#">Sign Up</a>
+          <a className="nav-link" href="/">Sign Up</a>
         </li>
         <li>
-          <a className="nav-link" href="#">Login</a>
+          <a className="nav-link" href="/">Login</a>
         </li>
       </ul>
         </div>

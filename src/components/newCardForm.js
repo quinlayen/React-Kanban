@@ -18,6 +18,7 @@ export default class Form extends Component {
 
   handleSubmit(event){
     event.preventDefault();
+    //console.log(this.state)
     this.props.addCard(this.state)
   }
   
@@ -28,7 +29,6 @@ export default class Form extends Component {
     this.setState({
       [name]: value
     }, ()=>{
-      console.log('new card added')
     })
   }
 
@@ -45,14 +45,14 @@ export default class Form extends Component {
                 <div className="row">
                   <div className="col-lg-8">
                     <div className="form-group">
-                      <label for="title">Title</label>
+                      <label>Title</label>
                       <input onChange={this.handleChange} type="text" className="form-control" name="title" id="title" required />
                     </div>
                   </div>
                   <div className="col-lg-1" />
                   <div className="col-lg-3">
                     <div className="form-group">
-                      <label for="status">Status</label>
+                      <label>Status</label>
                       <select onChange={this.handleChange} className="custom-select" name="status" id="status" required>
                         <option selected>Choose...</option>
                         <option value="In Queue">In Queue</option>
@@ -63,25 +63,25 @@ export default class Form extends Component {
                   </div>
                 </div>
                 <div className="form-group">
-                  <label for="notes">Notes</label>
+                  <label>Notes</label>
                   <input onChange={this.handleChange} type="text" className="form-control" name="notes" id="notes" required />
                 </div>
                 <div className="row">
                   <div className="col-lg-8">
                     <div className="form-group">
-                      <label for="assigned_to">Assigned To</label>
-                      <input onChange={this.handleChange} type="text" className="form-control" id="assigned_to" required />
+                      <label>Assigned To</label>
+                      <input onChange={this.handleChange} type="text" className="form-control" name="assigned_to" id="assigned_to" required />
                     </div>
                   </div>
                   <div className="col-lg-1" />
                   <div className="col-lg-3">
                     <div className="form-group">
-                      <label for="importance">Importance</label>
+                      <label>Importance</label>
                       <select onChange={this.handleChange} className="custom-select" name="importance" id="importance">
                         <option selected>Choose...</option>
-                        <option value="In Queue">Not So Important</option>
-                        <option value="In Progress">Pretty Important</option>
-                        <option value="Completed">Very Freaking Important</option>
+                        <option value="Not So Important">Not So Important</option>
+                        <option value="Pretty Important">Pretty Important</option>
+                        <option value="Very Freaking Important">Very Freaking Important</option>
                       </select>
                     </div>
                   </div>
