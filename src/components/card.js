@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-//import App from '../App'
 
 class Card extends Component {
   constructor(props) {
@@ -14,7 +13,7 @@ class Card extends Component {
   }
 
   newStatus(status) {
-    const cardId = this.props.id;
+    const cardId = this.props.card_id;
     return this.props.onStatusChange(status.currentTarget.textContent, cardId);
   }
 
@@ -29,11 +28,11 @@ class Card extends Component {
       fontSize: 14,
       margin: 0
     };
-    const { id, title, notes, priority, created_by, status, assigned_to, onStatusChange } = this.props;
+    const { card_id, title, notes, priority, created_by, status, assigned_to, onStatusChange } = this.props;
 
     return (
       <div>
-        <li id={id} className="list-group-item">
+        <li card_id={card_id} className="list-group-item">
           <div className="card bg-light mb-3" onClick={this.select}>
             <div className="card-body">
               <h5 className="card-title">{title}</h5>

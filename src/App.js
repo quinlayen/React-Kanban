@@ -52,13 +52,14 @@ class App extends Component {
 
   //This function is passed down to the card and receives both the status change and the id.
   //It then reads the change and reasigns the card to the correct column
-  onStatusChange(status, id) {
+  onStatusChange(status, card_id) {
+    console.log('on status change', status, card_id)
     const concatArray = this.state.in_queue_cards
       .concat(this.state.in_progress_cards)
       .concat(this.state.completed_cards);
     const filteredArray = concatArray.map(data => {
       // eslint-disable-next-line
-      if (data.id == id) {
+      if (data.card_id == card_id) {
         data.status = status;
       }
       return data;
