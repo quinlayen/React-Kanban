@@ -29,19 +29,15 @@ const cardsFromFakeDB = [{
 
 let newId = 4
 
-export const getCardsFromFakeXHR = () => new Promise((resolve, reject) => {
-  setTimeout( () => {
-    resolve(cardsFromFakeDB.slice())
-  }, 500)
-})
 
-export const addCardToFakeXHR = (card) => new Promise((resolve, reject) => {
-  setTimeout( () => {
-    console.log('card',card)
-    //card.id = newId;
-    newId++;
-    cardsFromFakeDB.push(card);
-    //console.log('itemFromFakeDB', cardsFromFakeDB)
-    resolve(cardsFromFakeDB)
-  },500)
-})
+
+// export const addCardToFakeXHR = (card) => new Promise((resolve, reject) => {
+//   setTimeout( () => {
+//     console.log('card',card)
+//     //card.id = newId;
+//     newId++;
+//     cardsFromFakeDB.push(card);
+//     //console.log('itemFromFakeDB', cardsFromFakeDB)
+//     resolve(cardsFromFakeDB)
+//   },500)
+//})
