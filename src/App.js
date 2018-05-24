@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import { getCardsFromFakeXHR, addCardToFakeXHR } from './initialDatabase';
+//import { getCardsFromFakeXHR, addCardToFakeXHR } from './initialDatabase';
 import Main from './components/main';
-import Column from './components/column';
+// import Column from './components/column';
 import NavBar from './components/navBar';
 import Form from './components/newCardForm.js';
+// eslint-disable-next-line
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -27,6 +28,7 @@ class App extends Component {
   componentDidMount() {
     axios.get('http://localhost:8080')
     .then(cards=>{
+      // eslint-disable-next-line
       const sortedColumns=this.sortColumns(cards.data);
       this.setState(sortedColumns);
     })
@@ -38,19 +40,16 @@ class App extends Component {
   //These are additional CRUD operations
 
   addCard(cardInfo){
-    //console.log('cardInfo', cardInfo)
     axios.post('http://localhost:8080/card/new', cardInfo)
-    .then(card=>{
-      console.log('new card', card)
+    .then(cards=>{
+      const sortedColumns=this.sortColumns(cards.data);
+      this.setState(sortedColumns);
+    })
+    .catch((err)=>{
+      console.log(err)
     })
   }
 
-  // addCard(){
-  //   addCardToFakeXHR().then(({card}) =>{
-  //     console.log('card added', card)
-  //     this.setState({card})
-  //   })
-  // }
   //This function is passed down to the card and receives both the status change and the id.
   //It then reads the change and reasigns the card to the correct column
   onStatusChange(status, id) {
@@ -58,6 +57,7 @@ class App extends Component {
       .concat(this.state.in_progress_cards)
       .concat(this.state.completed_cards);
     const filteredArray = concatArray.map(data => {
+      // eslint-disable-next-line
       if (data.id == id) {
         data.status = status;
       }

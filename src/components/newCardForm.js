@@ -9,7 +9,7 @@ export default class Form extends Component {
       status: null,
       notes: null,
       assigned_to: null,
-      importance: null
+      priority: null
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -77,7 +77,7 @@ export default class Form extends Component {
                   <div className="col-lg-3">
                     <div className="form-group">
                       <label>Importance</label>
-                      <select onChange={this.handleChange} className="custom-select" name="importance" id="importance">
+                      <select onChange={this.handleChange} className="custom-select" name="priority" id="priority">
                         <option selected>Choose...</option>
                         <option value="Not So Important">Not So Important</option>
                         <option value="Pretty Important">Pretty Important</option>
